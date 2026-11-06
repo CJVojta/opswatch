@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpsWatch | Service monitoring</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/dashboard.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-content">
+      <a class="brand" href="/"><span class="brand-icon" aria-hidden="true">◈</span> OpsWatch</a>
+      <span id="mode" class="mode">CONNECTING</span>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div>
+        <p class="eyebrow">OBSERVABILITY / OVERVIEW</p>
+        <h1 id="title">Service health</h1>
+        <p class="muted">Monitor availability, latency, and the incidents behind each outage.</p>
+      </div>
+      <button id="open-form" hidden>＋ Add monitor</button>
+    </section>
+    <p id="error" class="error" role="alert" hidden></p>
+    <div class="metrics" aria-label="Overview metrics">
+      <div><span>Services</span><strong id="total">—</strong></div>
+      <div><span>Operational</span><strong id="up">—</strong></div>
+      <div><span>Open incidents</span><strong id="open">—</strong></div>
+      <div><span>Checks · 24h</span><strong id="samples">—</strong></div>
+    </div>
+    <section class="panel" aria-labelledby="services-title">
+      <div class="panel-heading"><h2 id="services-title">Monitors</h2><span class="muted" id="updated">Loading…</span></div>
+      <div id="monitors" class="monitor-grid"></div>
+    </section>
+    <section class="panel" aria-labelledby="incidents-title">
+      <div class="panel-heading"><h2 id="incidents-title">Incident timeline</h2><span class="muted">Latest 30 · active first</span></div>
+      <ul id="incidents" class="incidents"></ul>
+    </section>
+  </main>
+  <dialog id="monitor-form" aria-labelledby="form-title">
+    <form id="add-form">
+      <h2 id="form-title">Add a monitor</h2>
+      <label>Display name<input name="name" maxlength="60" required placeholder="Customer portal"></label>
+      <label>Health URL<input name="url" type="url" maxlength="500" required placeholder="https://example.com/health"></label>
+      <div class="form-row">
+        <label>Interval (seconds)<input name="interval" type="number" min="15" max="3600" value="60" required></label>
+        <label>Timeout (seconds)<input name="timeout" type="number" min="1" max="10" value="5" required></label>
+      </div>
+      <p id="form-error" class="error" role="alert" hidden></p>
+      <div class="actions"><button type="button" class="secondary" data-close="monitor-form">Cancel</button><button>Add monitor</button></div>
+    </form>
+  </dialog>
+  <dialog id="history" aria-labelledby="history-title">
+    <div class="panel-heading"><h2 id="history-title">Check history</h2><button class="secondary" data-close="history">Close</button></div>
+    <div id="history-content"></div>
+  </dialog>
+</body>
+</html>
